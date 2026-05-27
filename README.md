@@ -10,7 +10,6 @@
 
 * [About](#-about-the-project)
 * [Features](#-features)
-* [Screenshots](#-screenshots)
 * [Security Architecture](#-security-architecture)
 * [Tech Stack](#-tech-stack)
 * [How It Works](#-how-it-works)
@@ -134,34 +133,6 @@ https://claude.ai/public/artifacts/2a420bc4-679a-4615-864d-482c32076a8c
 * 2FA status
 
 ---
-
-# 📸 Screenshots
-
-## 🔑 Login Screen
-
-* Secure sign-in form
-* Remember device option
-* Password visibility toggle
-* Security indicators
-
-## 📝 Registration Screen
-
-* Live username validation
-* Password strength meter
-* Optional 2FA setup
-
-## 📱 2FA Setup
-
-* QR code generation
-* Manual secret support
-* TOTP verification flow
-
-## 📊 Dashboard
-
-* Active session details
-* Security score
-* Activity tracking
-* 2FA management
 
 ---
 
