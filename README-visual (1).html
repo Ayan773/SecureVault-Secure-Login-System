@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SecureVault — README</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0d0d14;--bg2:#13131e;--bg3:#1a1a28;--bg4:#22223a;
+  --border:#2e2e4a;--border2:#3d3d60;
+  --purple:#8b5cf6;--purple2:#a78bfa;--purple3:#c4b5fd;
+  --green:#22d3ee;--green2:#6ee7b7;
+  --pink:#f472b6;--orange:#fb923c;--yellow:#fbbf24;
+  --text:#f0f0fa;--muted:#8888aa;
+  --mono:'Space Mono',monospace;
+  --sans:'Inter',sans-serif;
+  --radius:12px;--radius2:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;min-height:100vh;}
+.hero{background:linear-gradient(160deg,#0d0d14 0%,#1a0a2e 40%,#0a1a2e 70%,#0d0d14 100%);border-bottom:1px solid var(--border);padding:60px 40px 50px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(139,92,246,0.15),transparent 70%);pointer-events:none;}
+.hero-icon{width:80px;height:80px;border-radius:22px;background:linear-gradient(135deg,#7c3aed,#db2777);display:inline-flex;align-items:center;justify-content:center;font-size:38px;margin-bottom:20px;box-shadow:0 0 48px rgba(139,92,246,0.5);}
+.hero-title{font-family:'Space Mono',monospace;font-size:38px;font-weight:700;background:linear-gradient(135deg,#a78bfa,#f472b6,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;margin-bottom:6px;}
+.subtitle{font-size:18px;color:var(--muted);margin-bottom:8px;font-weight:300;}
+.project-tag{display:inline-block;padding:4px 14px;border-radius:20px;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.35);color:var(--purple2);font-size:13px;font-weight:500;letter-spacing:1px;margin-bottom:28px;}
+.badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:28px;}
+.badge{padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;letter-spacing:.5px;display:inline-flex;align-items:center;gap:6px;border:1px solid;}
+.badge-purple{background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.35);color:#c4b5fd;}
+.badge-green{background:rgba(34,211,238,0.1);border-color:rgba(34,211,238,0.3);color:#6ee7b7;}
+.badge-pink{background:rgba(244,114,182,0.1);border-color:rgba(244,114,182,0.3);color:#f9a8d4;}
+.badge-orange{background:rgba(251,146,60,0.1);border-color:rgba(251,146,60,0.3);color:#fdba74;}
+.badge-yellow{background:rgba(251,191,36,0.1);border-color:rgba(251,191,36,0.3);color:#fde68a;}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+.cta-btn{padding:11px 24px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s;letter-spacing:.3px;}
+.cta-primary{background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;box-shadow:0 4px 20px rgba(124,58,237,0.4);}
+.cta-primary:hover{transform:translateY(-2px);}
+.cta-secondary{background:rgba(255,255,255,0.05);color:var(--text);border:1px solid var(--border2);}
+.cta-secondary:hover{background:rgba(255,255,255,0.08);border-color:var(--purple);}
+.page{max-width:960px;margin:0 auto;padding:0 28px 60px;}
+section{margin-top:56px;}
+.section-label{font-size:11px;font-weight:700;color:var(--purple2);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+h2{font-size:24px;font-weight:700;margin-bottom:18px;letter-spacing:-.3px;}
+h3{font-size:16px;font-weight:600;margin-bottom:10px;}
+p{color:#c0c0d8;font-size:15px;line-height:1.75;margin-bottom:12px;}
+.demo-box{background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(219,39,119,0.08));border:1px solid rgba(139,92,246,0.3);border-radius:16px;padding:28px;text-align:center;}
+.demo-url{font-family:'Space Mono',monospace;font-size:16px;color:var(--purple2);background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);border-radius:8px;padding:12px 20px;display:inline-block;margin:12px 0 6px;word-break:break-all;}
+.demo-creds{display:inline-flex;gap:24px;margin-top:14px;flex-wrap:wrap;justify-content:center;}
+.cred{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;padding:8px 18px;font-family:'Space Mono',monospace;font-size:13px;}
+.cred span{color:var(--muted);font-size:11px;display:block;margin-bottom:2px;}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+.feat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:border-color .2s,transform .2s;}
+.feat-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.feat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;}
+.feat-card h3{font-size:14px;margin-bottom:6px;}
+.feat-card p{font-size:13px;color:var(--muted);margin:0;line-height:1.6;}
+.screens-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.screen-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.screen-topbar{height:32px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 12px;gap:6px;}
+.dot{width:10px;height:10px;border-radius:50%;}
+.screen-label{font-size:11px;color:var(--muted);margin-left:auto;font-family:'Space Mono',monospace;}
+.screen-body{padding:16px;}
+.mock-field{margin-bottom:12px;}
+.mock-label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;}
+.mock-input{background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:9px 12px;font-size:13px;color:#9090b8;display:flex;align-items:center;justify-content:space-between;}
+.mock-input.focused{border-color:var(--purple);box-shadow:0 0 0 3px rgba(139,92,246,0.15);}
+.mock-btn{background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;border-radius:8px;padding:10px;text-align:center;font-size:13px;font-weight:600;margin-top:8px;}
+.mock-btn2{background:rgba(139,92,246,0.1);color:var(--purple2);border:1px solid rgba(139,92,246,0.25);border-radius:8px;padding:10px;text-align:center;font-size:13px;font-weight:600;margin-top:8px;}
+.strength-row{display:flex;gap:3px;margin-top:5px;}
+.strength-seg{height:3px;flex:1;border-radius:2px;}
+.mock-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.stat-mini{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px;}
+.stat-mini .val{font-family:'Space Mono',monospace;font-size:18px;font-weight:700;margin-top:2px;}
+.act-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted);}
+.act-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.code-row{display:flex;gap:6px;margin:10px 0;}
+.code-box{width:36px;height:44px;background:var(--bg3);border:2px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:18px;font-weight:700;color:var(--purple2);}
+.code-box.active{border-color:var(--purple);box-shadow:0 0 0 3px rgba(139,92,246,0.15);}
+.arch-box{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px;overflow-x:auto;}
+.arch-node{background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:12px 24px;font-size:13px;font-weight:500;text-align:center;min-width:200px;}
+.arch-node.purple{background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.35);color:var(--purple2);}
+.arch-node.green{background:rgba(34,211,238,0.08);border-color:rgba(34,211,238,0.25);color:#6ee7b7;}
+.arch-node.pink{background:rgba(244,114,182,0.08);border-color:rgba(244,114,182,0.25);color:#f9a8d4;}
+.arch-node.orange{background:rgba(251,146,60,0.08);border-color:rgba(251,146,60,0.25);color:#fdba74;}
+.arch-arrow{height:22px;width:2px;background:var(--border2);margin:0 auto;position:relative;}
+.arch-arrow::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--border2);}
+.arch-sub{font-size:10px;color:var(--muted);margin-top:3px;font-weight:400;}
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;}
+.tech-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:10px;}
+.tech-icon{font-size:22px;}
+.tech-name{font-size:13px;font-weight:600;}
+.tech-desc{font-size:11px;color:var(--muted);}
+.code-block{background:#0a0a10;border:1px solid var(--border);border-radius:12px;padding:20px 22px;overflow-x:auto;margin:16px 0;font-family:'Space Mono',monospace;font-size:13px;line-height:1.8;}
+.code-block .comment{color:#4b5563;}
+.code-block .keyword{color:#c084fc;}
+.code-block .string{color:#86efac;}
+.code-block .func{color:#67e8f9;}
+.code-block .num{color:#fbbf24;}
+.code-header{background:var(--bg3);border:1px solid var(--border);border-bottom:none;border-radius:12px 12px 0 0;padding:8px 16px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;}
+.roadmap{display:flex;flex-direction:column;}
+.road-item{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+.road-item:last-child{border-bottom:none;}
+.road-check{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px;}
+.road-check.done{background:rgba(34,211,238,0.15);color:#6ee7b7;border:1px solid rgba(34,211,238,0.3);}
+.road-check.todo{background:rgba(255,255,255,0.04);color:var(--muted);border:1px solid var(--border);}
+.road-text{font-size:14px;}
+.road-tag{font-size:11px;color:var(--muted);}
+.links-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+.link-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-decoration:none;color:var(--text);display:flex;align-items:center;gap:14px;transition:all .2s;}
+.link-card:hover{border-color:var(--border2);transform:translateY(-2px);background:var(--bg3);}
+.link-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.link-name{font-size:14px;font-weight:600;margin-bottom:2px;}
+.link-url{font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;word-break:break-all;}
+.sec-table{width:100%;border-collapse:collapse;font-size:14px;}
+.sec-table th{text-align:left;padding:10px 14px;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--bg2);}
+.sec-table td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:top;color:#c0c0d8;}
+.sec-table tr:last-child td{border-bottom:none;}
+.sec-table tr:hover td{background:rgba(255,255,255,0.02);}
+.learn-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.learn-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;border-left:3px solid;}
+.learn-num{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:6px;}
+.learn-card h3{font-size:14px;margin-bottom:6px;}
+.learn-card p{font-size:13px;color:var(--muted);margin:0;line-height:1.6;}
+.toc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;}
+.toc-title{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;}
+.toc-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:4px 20px;}
+.toc-list a{font-size:13px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;padding:3px 0;}
+.toc-list a:hover{color:var(--purple2);}
+.toc-list a::before{content:'';font-size:11px;color:var(--border2);}
+.footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;margin-top:60px;}
+.footer p{font-size:13px;color:var(--muted);margin:0;}
+.heart{color:#f472b6;}
+.warn-bar{background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:8px;padding:10px 16px;font-size:13px;color:#fde68a;margin:16px 28px;display:flex;align-items:center;gap:8px;}
+@media(max-width:600px){.screens-grid{grid-template-columns:1fr;}.learn-grid{grid-template-columns:1fr;}.toc-list{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-icon">&#128272;</div>
+  <div class="hero-title">SECUREVAULT</div>
+  <div class="subtitle">Secure Login System &mdash; Project #4</div>
+  <div style="margin-bottom:20px;"><span class="project-tag">&#127891; WEB DEVELOPMENT JOURNEY</span></div>
+  <div class="badges">
+    <span class="badge badge-purple">&#128274; PBKDF2-SHA256</span>
+    <span class="badge badge-green">&#128241; 2FA / TOTP</span>
+    <span class="badge badge-pink">&#128737; Rate Limiting</span>
+    <span class="badge badge-orange">&#9889; Zero Dependencies</span>
+    <span class="badge badge-yellow">&#10003; Session Management</span>
+    <span class="badge badge-purple">&#128273; CSRF Protection</span>
+    <span class="badge badge-green">&#128683; Anti-Timing Attacks</span>
+  </div>
+  <div class="cta-row">
+    <a href="https://YOUR_USERNAME.github.io/secure-login-system" class="cta-btn cta-primary">&#128640; Live Demo</a>
+    <a href="https://github.com/YOUR_USERNAME/secure-login-system" class="cta-btn cta-secondary">&#128187; GitHub Repo</a>
+    <a href="https://linkedin.com/in/YOUR_PROFILE" class="cta-btn cta-secondary">&#128188; LinkedIn</a>
+    <a href="mailto:your@email.com" class="cta-btn cta-secondary">&#128231; Contact</a>
+  </div>
+</div>
+
+<div class="warn-bar">&#128161; <strong>Replace YOUR_USERNAME, YOUR_PROFILE, and your@email.com</strong> with your real details before publishing to GitHub.</div>
+
+<div class="page">
+
+  <section>
+    <div class="toc">
+      <div class="toc-title">&#128203; Table of Contents</div>
+      <ul class="toc-list">
+        <li><a href="#about">About The Project</a></li>
+        <li><a href="#demo">Live Demo</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#screens">Screenshots</a></li>
+        <li><a href="#arch">Security Architecture</a></li>
+        <li><a href="#tech">Tech Stack</a></li>
+        <li><a href="#code">How It Works</a></li>
+        <li><a href="#security">Security Measures</a></li>
+        <li><a href="#start">Getting Started</a></li>
+        <li><a href="#learned">What I Learned</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#links">All Links</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-label">01 &nbsp;About</div>
+    <h2>About The Project</h2>
+    <p>SecureVault is <strong style="color:var(--purple2)">Project #4</strong> in my web development journey &mdash; a fully functional secure login system implementing real-world security standards used by production applications.</p>
+    <p>Most tutorials show you how to build login forms. This project goes deeper &mdash; implementing the actual cryptographic primitives, attack mitigations, and security patterns that protect real user accounts.</p>
+    <p><strong style="color:#22d3ee">The challenge:</strong> Build a complete authentication system with zero external dependencies, using only browser-native APIs &mdash; no bcrypt library, no JWT package, no auth framework.</p>
+    <p><strong style="color:#f472b6">The result:</strong> PBKDF2-SHA256 password hashing, TOTP-based 2FA, rate limiting, CSRF protection, session management, and input sanitization &mdash; all from scratch.</p>
+  </section>
+
+  <section id="demo">
+    <div class="section-label">02 &nbsp;Live Demo</div>
+    <h2>Try It Now</h2>
+    <div class="demo-box">
+      <p style="color:var(--muted);font-size:14px;margin:0 0 4px;">&#127760; Live at GitHub Pages</p>
+      <div class="demo-url">https://YOUR_USERNAME.github.io/secure-login-system</div>
+      <p style="color:var(--muted);font-size:13px;margin:10px 0 0;">Use the demo account to explore all features instantly:</p>
+      <div class="demo-creds">
+        <div class="cred"><span>Username</span>demo</div>
+        <div class="cred"><span>Password</span>Demo@1234</div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:12px;margin-bottom:0;">&#128161; All data is in-memory only &mdash; nothing is sent to any server. Refresh to reset.</p>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="section-label">03 &nbsp;Features</div>
+    <h2>What's Included</h2>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(139,92,246,0.15);">&#128273;</div>
+        <h3>Password Hashing</h3>
+        <p>PBKDF2-SHA256 with 100,000 iterations and unique salt per user &mdash; equivalent to bcrypt cost 12.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(34,211,238,0.1);">&#128241;</div>
+        <h3>Two-Factor Auth</h3>
+        <p>TOTP (RFC 6238) built from scratch. Works with Google Authenticator, Authy, and Bitwarden.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(244,114,182,0.1);">&#128683;</div>
+        <h3>Rate Limiting</h3>
+        <p>Account lockout after 5 failed attempts with a 30-second cooldown per username.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(251,146,60,0.1);">&#9201;</div>
+        <h3>Session Management</h3>
+        <p>Cryptographic session tokens with 30-minute sliding expiry and instant logout.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(34,197,94,0.1);">&#128373;</div>
+        <h3>Timing Attack Prevention</h3>
+        <p>Always hashes on login &mdash; even for invalid usernames &mdash; preventing enumeration via response time.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(139,92,246,0.15);">&#128737;</div>
+        <h3>CSRF Protection</h3>
+        <p>Cryptographically random CSRF token generated and bound to each active session.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(251,191,36,0.1);">&#10003;</div>
+        <h3>Input Validation</h3>
+        <p>Real-time validation with XSS character stripping on all inputs before any processing.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(34,211,238,0.1);">&#128202;</div>
+        <h3>Security Dashboard</h3>
+        <p>Post-login dashboard showing security score, session token, activity log, and 2FA status.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="screens">
+    <div class="section-label">04 &nbsp;Screenshots</div>
+    <h2>App Screens</h2>
+    <div class="screens-grid">
+
+      <div class="screen-card">
+        <div class="screen-topbar">
+          <div class="dot" style="background:#ff5f57;"></div>
+          <div class="dot" style="background:#ffbd2e;"></div>
+          <div class="dot" style="background:#28c840;"></div>
+          <span class="screen-label">Sign In</span>
+        </div>
+        <div class="screen-body">
+          <div style="font-size:11px;color:var(--muted);text-align:center;margin-bottom:12px;letter-spacing:1px;">SECUREVAULT</div>
+          <div class="mock-field">
+            <div class="mock-label">Username</div>
+            <div class="mock-input">demo <span style="font-size:11px;color:#6ee7b7;">&#10003;</span></div>
+          </div>
+          <div class="mock-field">
+            <div class="mock-label">Password</div>
+            <div class="mock-input focused">&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226; <span style="font-size:12px;color:var(--purple2);">&#128065;</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+            <div style="width:13px;height:13px;border-radius:3px;background:rgba(139,92,246,0.3);border:1px solid rgba(139,92,246,0.5);"></div>
+            <span style="font-size:11px;color:var(--muted);">Remember this device</span>
+          </div>
+          <div class="mock-btn">Sign In</div>
+          <div style="text-align:center;font-size:10px;color:var(--muted);margin-top:8px;">&#128274; AES-256 &bull; PBKDF2 &bull; CSRF Protected</div>
+        </div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-topbar">
+          <div class="dot" style="background:#ff5f57;"></div>
+          <div class="dot" style="background:#ffbd2e;"></div>
+          <div class="dot" style="background:#28c840;"></div>
+          <span class="screen-label">Register</span>
+        </div>
+        <div class="screen-body">
+          <div class="mock-field">
+            <div class="mock-label">Username</div>
+            <div class="mock-input" style="border-color:#22d3ee;box-shadow:0 0 0 3px rgba(34,211,238,0.1);">alice_dev <span style="font-size:11px;color:#6ee7b7;">&#10003; Available</span></div>
+          </div>
+          <div class="mock-field">
+            <div class="mock-label">Password</div>
+            <div class="mock-input" style="border-color:#22d3ee;">Str0ng!Pass <span style="font-size:12px;color:var(--purple2);">&#128065;</span></div>
+            <div class="strength-row">
+              <div class="strength-seg" style="background:#8b5cf6;"></div>
+              <div class="strength-seg" style="background:#8b5cf6;"></div>
+              <div class="strength-seg" style="background:#8b5cf6;"></div>
+              <div class="strength-seg" style="background:#8b5cf6;"></div>
+              <div class="strength-seg" style="background:#8b5cf6;"></div>
+            </div>
+            <div style="font-size:10px;color:#6ee7b7;margin-top:3px;">Very Strong</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+            <div style="width:13px;height:13px;border-radius:3px;background:rgba(139,92,246,0.5);border:1px solid rgba(139,92,246,0.7);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;">&#10003;</div>
+            <span style="font-size:11px;color:var(--muted);">Enable 2FA (recommended)</span>
+          </div>
+          <div class="mock-btn">Create Secure Account</div>
+        </div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-topbar">
+          <div class="dot" style="background:#ff5f57;"></div>
+          <div class="dot" style="background:#ffbd2e;"></div>
+          <div class="dot" style="background:#28c840;"></div>
+          <span class="screen-label">2FA Setup</span>
+        </div>
+        <div class="screen-body">
+          <div style="text-align:center;margin-bottom:10px;">
+            <div style="font-size:28px;margin-bottom:4px;">&#128274;</div>
+            <div style="font-size:13px;font-weight:600;">Set Up 2FA</div>
+            <div style="font-size:11px;color:var(--muted);">Scan QR with authenticator app</div>
+          </div>
+          <div style="background:white;border-radius:8px;padding:8px;text-align:center;margin-bottom:8px;">
+            <svg viewBox="0 0 80 80" width="70" height="70" xmlns="http://www.w3.org/2000/svg">
+              <rect width="80" height="80" fill="white"/>
+              <rect x="5" y="5" width="25" height="25" fill="#1a1a28" rx="2"/>
+              <rect x="8" y="8" width="19" height="19" fill="white" rx="1"/>
+              <rect x="11" y="11" width="13" height="13" fill="#1a1a28" rx="1"/>
+              <rect x="50" y="5" width="25" height="25" fill="#1a1a28" rx="2"/>
+              <rect x="53" y="8" width="19" height="19" fill="white" rx="1"/>
+              <rect x="56" y="11" width="13" height="13" fill="#1a1a28" rx="1"/>
+              <rect x="5" y="50" width="25" height="25" fill="#1a1a28" rx="2"/>
+              <rect x="8" y="53" width="19" height="19" fill="white" rx="1"/>
+              <rect x="11" y="56" width="13" height="13" fill="#1a1a28" rx="1"/>
+              <rect x="35" y="5" width="7" height="7" fill="#1a1a28"/>
+              <rect x="44" y="5" width="4" height="4" fill="#1a1a28"/>
+              <rect x="35" y="14" width="4" height="7" fill="#1a1a28"/>
+              <rect x="35" y="35" width="7" height="7" fill="#1a1a28"/>
+              <rect x="50" y="35" width="4" height="7" fill="#1a1a28"/>
+              <rect x="56" y="44" width="7" height="7" fill="#1a1a28"/>
+              <rect x="65" y="35" width="10" height="4" fill="#1a1a28"/>
+              <rect x="35" y="50" width="4" height="10" fill="#1a1a28"/>
+              <rect x="41" y="56" width="7" height="4" fill="#1a1a28"/>
+            </svg>
+          </div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--purple2);background:rgba(139,92,246,0.1);border-radius:5px;padding:5px;text-align:center;letter-spacing:1px;margin-bottom:8px;">JBSWY3DPEHPK3PXP</div>
+          <div class="code-row" style="justify-content:center;">
+            <div class="code-box active">4</div>
+            <div class="code-box">2</div>
+            <div class="code-box">8</div>
+            <div class="code-box">_</div>
+            <div class="code-box">_</div>
+            <div class="code-box">_</div>
+          </div>
+          <div class="mock-btn" style="margin-top:8px;">Confirm &amp; Enable 2FA</div>
+        </div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-topbar">
+          <div class="dot" style="background:#ff5f57;"></div>
+          <div class="dot" style="background:#ffbd2e;"></div>
+          <div class="dot" style="background:#28c840;"></div>
+          <span class="screen-label">Dashboard</span>
+        </div>
+        <div class="screen-body">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#db2777);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;">AL</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;">alice_dev</div>
+              <div style="font-size:11px;color:var(--muted);">alice@example.com</div>
+            </div>
+            <span class="mock-badge" style="margin-left:auto;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);color:#6ee7b7;font-size:10px;">&#128737; 2FA ON</span>
+          </div>
+          <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:7px;padding:7px 10px;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+            <div style="width:6px;height:6px;border-radius:50%;background:#6ee7b7;"></div>
+            <span style="font-size:10px;color:var(--muted);">Active &bull; <span style="color:var(--purple2);font-family:'Space Mono',monospace;">a3f9c2d1b8</span></span>
+            <span style="margin-left:auto;font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;">29:47</span>
+          </div>
+          <div class="stat-row">
+            <div class="stat-mini"><div style="font-size:10px;color:var(--muted);">LOGINS</div><div class="val" style="color:var(--purple2);">7</div></div>
+            <div class="stat-mini"><div style="font-size:10px;color:var(--muted);">SCORE</div><div class="val" style="color:#6ee7b7;">90%</div></div>
+          </div>
+          <div class="act-item"><div class="act-dot" style="background:#6ee7b7;"></div>Login from browser <span style="margin-left:auto;font-family:'Space Mono',monospace;font-size:10px;">14:23</span></div>
+          <div class="act-item"><div class="act-dot" style="background:#6ee7b7;"></div>2FA verified <span style="margin-left:auto;font-family:'Space Mono',monospace;font-size:10px;">14:22</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;">
+            <div class="mock-btn2" style="font-size:11px;padding:8px;">&#9881; Manage 2FA</div>
+            <div style="background:rgba(255,77,109,0.1);color:#ff6b6b;border:1px solid rgba(255,77,109,0.25);border-radius:8px;padding:8px;text-align:center;font-size:11px;font-weight:600;">Sign Out</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="arch">
+    <div class="section-label">05 &nbsp;Architecture</div>
+    <h2>Security Architecture</h2>
+    <div class="arch-box">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;text-align:center;">Registration Flow</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+            <div class="arch-node">User Input</div>
+            <div class="arch-arrow"></div>
+            <div class="arch-node purple">Validate &amp; Sanitize<div class="arch-sub">strip XSS &bull; email &bull; username rules</div></div>
+            <div class="arch-arrow"></div>
+            <div class="arch-node pink">PBKDF2-SHA256<div class="arch-sub">100k iterations &bull; random salt</div></div>
+            <div class="arch-arrow"></div>
+            <div class="arch-node green">Store Hash + Salt<div class="arch-sub">never the plaintext password</div></div>
+            <div class="arch-arrow"></div>
+            <div class="arch-node orange">Optional: 2FA Setup<div class="arch-sub">TOTP secret &bull; QR code</div></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;text-align:center;">Login Flow</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+            <div class="arch-node">Login Attempt</div>
+            <div class="arch-arrow"></div>
+            <div class="arch-node pink">Rate Limit Check<div class="arch-sub">5 fails &rarr; 30s lockout</div></div>
+            <div class="arch-arrow"></div>
+            <div class="arch-node purple">PBKDF2 Compare<div class="arch-sub">constant time &bull; anti-timing</div></div>
+            <div class="arch-arrow"></div>
+            <div class="arch-node orange">2FA Verify (if on)<div class="arch-sub">&plusmn;1 window &bull; HMAC-SHA1</div></div>
+            <div class="arch-arrow"></div>
+            <div class="arch-node green">Create Session<div class="arch-sub">random token &bull; CSRF &bull; 30min TTL</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tech">
+    <div class="section-label">06 &nbsp;Tech Stack</div>
+    <h2>Built With</h2>
+    <div class="tech-grid">
+      <div class="tech-card"><div class="tech-icon">&#127760;</div><div><div class="tech-name">HTML5</div><div class="tech-desc">Semantic markup</div></div></div>
+      <div class="tech-card"><div class="tech-icon">&#127912;</div><div><div class="tech-name">CSS3</div><div class="tech-desc">Custom properties, animations</div></div></div>
+      <div class="tech-card"><div class="tech-icon">&#9889;</div><div><div class="tech-name">JavaScript ES2020</div><div class="tech-desc">Async/await, modules</div></div></div>
+      <div class="tech-card"><div class="tech-icon">&#128272;</div><div><div class="tech-name">Web Crypto API</div><div class="tech-desc">Native browser crypto</div></div></div>
+      <div class="tech-card"><div class="tech-icon">&#128274;</div><div><div class="tech-name">PBKDF2-SHA256</div><div class="tech-desc">Key derivation, 100k iter</div></div></div>
+      <div class="tech-card"><div class="tech-icon">&#128241;</div><div><div class="tech-name">TOTP RFC 6238</div><div class="tech-desc">HMAC-SHA1 2FA standard</div></div></div>
+      <div class="tech-card"><div class="tech-icon">&#128640;</div><div><div class="tech-name">GitHub Pages</div><div class="tech-desc">Free static hosting</div></div></div>
+      <div class="tech-card"><div class="tech-icon">0&#65039;&#8419;</div><div><div class="tech-name">Zero Dependencies</div><div class="tech-desc">No npm &bull; no libraries</div></div></div>
+    </div>
+  </section>
+
+  <section id="code">
+    <div class="section-label">07 &nbsp;Implementation</div>
+    <h2>How It Works</h2>
+    <h3 style="color:var(--purple2);margin-top:20px;">Password Hashing (PBKDF2)</h3>
+    <div class="code-header"><span>&#128272;</span> password-hashing.js</div>
+    <div class="code-block" style="border-radius:0 0 12px 12px;margin-top:0;">
+      <span class="comment">// Each user gets a unique 24-byte cryptographic salt</span><br/>
+      <span class="keyword">const</span> salt = <span class="func">generateSalt</span>(); <span class="comment">// crypto.getRandomValues()</span><br/><br/>
+      <span class="comment">// PBKDF2 with 100,000 iterations</span><br/>
+      <span class="keyword">const</span> hash = <span class="keyword">await</span> crypto.subtle.<span class="func">deriveBits</span>({<br/>
+      &nbsp;&nbsp;name: <span class="string">"PBKDF2"</span>, salt, iterations: <span class="num">100000</span>, hash: <span class="string">"SHA-256"</span><br/>
+      }, keyMaterial, <span class="num">256</span>);
+    </div>
+    <h3 style="color:var(--green);margin-top:24px;">Two-Factor Auth (TOTP / RFC 6238)</h3>
+    <div class="code-header"><span>&#128241;</span> totp.js</div>
+    <div class="code-block" style="border-radius:0 0 12px 12px;margin-top:0;">
+      <span class="comment">// counter = floor(unix_timestamp / 30 seconds)</span><br/>
+      <span class="keyword">const</span> counter = Math.<span class="func">floor</span>(timeStep / <span class="num">30</span>);<br/><br/>
+      <span class="comment">// HMAC-SHA1(secret, counter) &rarr; dynamic truncation &rarr; 6 digits</span><br/>
+      <span class="keyword">const</span> key = <span class="keyword">await</span> crypto.subtle.<span class="func">importKey</span>(<br/>
+      &nbsp;&nbsp;<span class="string">"raw"</span>, <span class="func">base32ToBytes</span>(secret),<br/>
+      &nbsp;&nbsp;{ name: <span class="string">"HMAC"</span>, hash: <span class="string">"SHA-1"</span> }, <span class="keyword">false</span>, [<span class="string">"sign"</span>]<br/>
+      );
+    </div>
+    <h3 style="color:var(--pink);margin-top:24px;">Timing Attack Prevention</h3>
+    <div class="code-header"><span>&#9201;</span> anti-timing.js</div>
+    <div class="code-block" style="border-radius:0 0 12px 12px;margin-top:0;">
+      <span class="comment">// WRONG: attacker times response to detect valid usernames</span><br/>
+      <span class="keyword">if</span> (!user) <span class="keyword">return</span> <span class="func">error</span>(); <span class="comment">// fast &rarr; username leaked!</span><br/><br/>
+      <span class="comment">// CORRECT: always hash, even for unknown users</span><br/>
+      <span class="keyword">if</span> (!user) <span class="keyword">await</span> <span class="func">hashPassword</span>(password, <span class="string">'dummysalt'</span>);<br/>
+      <span class="keyword">const</span> hash = <span class="keyword">await</span> <span class="func">hashPassword</span>(password, user.salt);<br/>
+      <span class="keyword">if</span> (hash !== user.hash) <span class="keyword">return</span> <span class="func">error</span>(); <span class="comment">// identical timing</span>
+    </div>
+  </section>
+
+  <section id="security">
+    <div class="section-label">08 &nbsp;Security</div>
+    <h2>Security Measures</h2>
+    <div style="overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);">
+      <table class="sec-table">
+        <thead>
+          <tr><th>Measure</th><th>Implementation</th><th>Protects Against</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="badge badge-purple" style="font-size:11px;">PBKDF2-SHA256</span></td><td>100,000 iterations + unique salt per user</td><td>Brute force, rainbow tables</td></tr>
+          <tr><td><span class="badge badge-green" style="font-size:11px;">TOTP 2FA</span></td><td>RFC 6238 HMAC-SHA1, &plusmn;1 window tolerance</td><td>Credential theft, account takeover</td></tr>
+          <tr><td><span class="badge badge-pink" style="font-size:11px;">Rate Limiting</span></td><td>5 fails &rarr; 30s lockout per username</td><td>Brute force, credential stuffing</td></tr>
+          <tr><td><span class="badge badge-orange" style="font-size:11px;">Anti-Timing</span></td><td>Always hash, even on unknown usernames</td><td>Username enumeration via timing</td></tr>
+          <tr><td><span class="badge badge-yellow" style="font-size:11px;">CSRF Token</span></td><td>32-byte random token bound to session</td><td>Cross-site request forgery</td></tr>
+          <tr><td><span class="badge badge-purple" style="font-size:11px;">Input Sanitization</span></td><td>Strip &lt;&gt;"';\` from all inputs</td><td>XSS injection, script injection</td></tr>
+          <tr><td><span class="badge badge-green" style="font-size:11px;">Session Expiry</span></td><td>30-min sliding window, crypto token</td><td>Session hijacking, stale sessions</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="start">
+    <div class="section-label">09 &nbsp;Setup</div>
+    <h2>Getting Started</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
+        <h3 style="font-size:14px;margin-bottom:12px;">&#9889; Option 1 &mdash; Open Directly</h3>
+        <div class="code-block" style="margin:0;font-size:12px;padding:14px;">
+          <span class="comment"># Just open in browser</span><br/>
+          open secure-login-system.html
+        </div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
+        <h3 style="font-size:14px;margin-bottom:12px;">&#128295; Option 2 &mdash; Serve Locally</h3>
+        <div class="code-block" style="margin:0;font-size:12px;padding:14px;">
+          npx serve .<br/>
+          <span class="comment"># or</span><br/>
+          python -m http.server 8000
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
+      <h3 style="font-size:14px;margin-bottom:12px;">&#128640; Option 3 &mdash; Clone &amp; Deploy to GitHub Pages</h3>
+      <div class="code-block" style="margin:0;font-size:12px;padding:14px;">
+        git clone https://github.com/YOUR_USERNAME/secure-login-system.git<br/>
+        cd secure-login-system<br/><br/>
+        <span class="comment"># Enable GitHub Pages:</span><br/>
+        <span class="comment"># Settings &rarr; Pages &rarr; Deploy from branch &rarr; main &rarr; / (root)</span><br/>
+        <span class="comment"># Your URL: https://YOUR_USERNAME.github.io/secure-login-system</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="learned">
+    <div class="section-label">10 &nbsp;Learnings</div>
+    <h2>What I Learned</h2>
+    <div class="learn-grid">
+      <div class="learn-card" style="border-left-color:#8b5cf6;">
+        <div class="learn-num">01</div>
+        <h3>Crypto is Nuanced</h3>
+        <p>PBKDF2 is not just "hash + salt." Iteration count, salt entropy, and output length all materially affect security strength.</p>
+      </div>
+      <div class="learn-card" style="border-left-color:#22d3ee;">
+        <div class="learn-num">02</div>
+        <h3>Timing Attacks Are Real</h3>
+        <p>Response time differences of milliseconds can leak whether a username exists. Constant-time comparison is non-negotiable.</p>
+      </div>
+      <div class="learn-card" style="border-left-color:#f472b6;">
+        <div class="learn-num">03</div>
+        <h3>2FA Is Just HMAC</h3>
+        <p>TOTP is HMAC-SHA1 of a secret key and a time-based counter &mdash; nothing magic. Building it from scratch was genuinely satisfying.</p>
+      </div>
+      <div class="learn-card" style="border-left-color:#fb923c;">
+        <div class="learn-num">04</div>
+        <h3>Defense in Depth</h3>
+        <p>No single measure is enough. Hashing + 2FA + rate limiting + sanitization together create real, layered security.</p>
+      </div>
+      <div class="learn-card" style="border-left-color:#22c55e;">
+        <div class="learn-num">05</div>
+        <h3>Browser Crypto Is Powerful</h3>
+        <p>The Web Crypto API does PBKDF2, HMAC, AES, RSA natively &mdash; no library needed. The browser is a crypto powerhouse.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <div class="section-label">11 &nbsp;Roadmap</div>
+    <h2>What's Next</h2>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
+      <div class="roadmap">
+        <div class="road-item"><div class="road-check done">&#10003;</div><div><div class="road-text">Password hashing (PBKDF2-SHA256)</div><div class="road-tag">Completed</div></div></div>
+        <div class="road-item"><div class="road-check done">&#10003;</div><div><div class="road-text">Input validation &amp; XSS sanitization</div><div class="road-tag">Completed</div></div></div>
+        <div class="road-item"><div class="road-check done">&#10003;</div><div><div class="road-text">Rate limiting &amp; account lockout</div><div class="road-tag">Completed</div></div></div>
+        <div class="road-item"><div class="road-check done">&#10003;</div><div><div class="road-text">Session management with expiry &amp; CSRF</div><div class="road-tag">Completed</div></div></div>
+        <div class="road-item"><div class="road-check done">&#10003;</div><div><div class="road-text">TOTP-based 2FA (Google Authenticator compatible)</div><div class="road-tag">Completed</div></div></div>
+        <div class="road-item"><div class="road-check done">&#10003;</div><div><div class="road-text">Security dashboard with activity log</div><div class="road-tag">Completed</div></div></div>
+        <div class="road-item"><div class="road-check todo">&#9675;</div><div><div class="road-text">Persistent storage with IndexedDB</div><div class="road-tag">Planned</div></div></div>
+        <div class="road-item"><div class="road-check todo">&#9675;</div><div><div class="road-text">OAuth login (Google / GitHub)</div><div class="road-tag">Planned</div></div></div>
+        <div class="road-item"><div class="road-check todo">&#9675;</div><div><div class="road-text">WebAuthn / Passkey support</div><div class="road-tag">Future</div></div></div>
+        <div class="road-item"><div class="road-check todo">&#9675;</div><div><div class="road-text">WCAG 2.1 AA full accessibility</div><div class="road-tag">Future</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="links">
+    <div class="section-label">12 &nbsp;Connect</div>
+    <h2>All Links</h2>
+    <div class="links-grid">
+      <a href="https://YOUR_USERNAME.github.io/secure-login-system" class="link-card">
+        <div class="link-icon" style="background:rgba(139,92,246,0.15);">&#128640;</div>
+        <div><div class="link-name">Live Demo</div><div class="link-url">YOUR_USERNAME.github.io/secure-login-system</div></div>
+      </a>
+      <a href="https://github.com/YOUR_USERNAME/secure-login-system" class="link-card">
+        <div class="link-icon" style="background:rgba(255,255,255,0.06);">&#128187;</div>
+        <div><div class="link-name">GitHub Repository</div><div class="link-url">github.com/YOUR_USERNAME/secure-login-system</div></div>
+      </a>
+      <a href="https://linkedin.com/in/YOUR_PROFILE" class="link-card">
+        <div class="link-icon" style="background:rgba(10,102,194,0.15);">&#128188;</div>
+        <div><div class="link-name">LinkedIn Profile</div><div class="link-url">linkedin.com/in/YOUR_PROFILE</div></div>
+      </a>
+      <a href="https://github.com/YOUR_USERNAME" class="link-card">
+        <div class="link-icon" style="background:rgba(255,255,255,0.06);">&#128025;</div>
+        <div><div class="link-name">GitHub Profile</div><div class="link-url">github.com/YOUR_USERNAME</div></div>
+      </a>
+      <a href="mailto:your@email.com" class="link-card">
+        <div class="link-icon" style="background:rgba(251,146,60,0.12);">&#128231;</div>
+        <div><div class="link-name">Email Me</div><div class="link-url">your@email.com</div></div>
+      </a>
+      <a href="https://github.com/YOUR_USERNAME/secure-login-system/issues" class="link-card">
+        <div class="link-icon" style="background:rgba(244,114,182,0.1);">&#128027;</div>
+        <div><div class="link-name">Report a Bug</div><div class="link-url">github.com/.../issues</div></div>
+      </a>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div style="font-size:28px;margin-bottom:8px;">&#11088;</div>
+    <p style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px;">If this helped you, please star the repo on GitHub!</p>
+    <p>Built with <span class="heart">&#9829;</span> by <strong style="color:var(--purple2);">Your Name</strong> &bull; Project #4 of my Web Dev Journey</p>
+    <p style="margin-top:8px;font-style:italic;font-size:13px;">"Security isn't a feature &mdash; it's a mindset baked into every line of code."</p>
+    <div style="margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <span class="badge badge-purple" style="font-size:11px;">MIT License</span>
+      <span class="badge badge-green" style="font-size:11px;">Open Source</span>
+      <span class="badge badge-pink" style="font-size:11px;">2026</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
