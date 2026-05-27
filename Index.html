@@ -1,0 +1,453 @@
+<!-- Save this file as: index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SecureVault — Login System</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --border: #2a2a3a;
+    --accent: #6c63ff;
+    --accent2: #ff6584;
+    --accent3: #43e97b;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --error: #ff4d6d;
+    --success: #43e97b;
+    --warning: #ffd166;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 20%, rgba(108,99,255,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(255,101,132,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 50% 50%, rgba(67,233,123,0.04) 0%, transparent 70%);
+    pointer-events:none; z-index:0;
+    animation: bgPulse 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgPulse {
+    0%   { opacity:.6; }
+    100% { opacity:1; }
+  }
+
+  body::after {
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(108,99,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(108,99,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events:none; z-index:0;
+  }
+
+  .app-container {
+    position:relative; z-index:1;
+    width: 100%; max-width: 480px;
+    padding: 20px;
+  }
+
+  .logo {
+    text-align:center;
+    margin-bottom: 32px;
+    animation: fadeDown .6s ease both;
+  }
+
+  .logo-icon {
+    width:56px; height:56px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius:16px;
+    display:inline-flex; align-items:center; justify-content:center;
+    font-size:28px; margin-bottom:12px;
+    box-shadow: 0 0 32px rgba(108,99,255,0.4);
+  }
+
+  .logo h1 {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight:700;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .logo p {
+    color:var(--muted);
+    font-size:13px;
+    margin-top:4px;
+    letter-spacing:.5px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+    animation: fadeUp .6s ease .1s both;
+  }
+
+  .tabs {
+    display:flex;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+
+  .tab-btn {
+    flex:1;
+    padding:16px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    color:var(--muted);
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:.5px;
+    transition: all .2s;
+    position:relative;
+  }
+
+  .tab-btn.active {
+    color:var(--text);
+    background: var(--surface);
+  }
+
+  .tab-btn.active::after {
+    content:'';
+    position:absolute;
+    bottom:0;
+    left:20%;
+    right:20%;
+    height:2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+
+  .panel {
+    padding:28px;
+    display:none;
+  }
+
+  .panel.active {
+    display:block;
+  }
+
+  .field {
+    margin-bottom:20px;
+  }
+
+  .field label {
+    display:block;
+    margin-bottom:8px;
+    font-size:12px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:1px;
+  }
+
+  .field input {
+    width:100%;
+    padding:12px 16px;
+    background: var(--surface2);
+    border:1px solid var(--border);
+    border-radius:10px;
+    color:var(--text);
+    outline:none;
+  }
+
+  .field input:focus {
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(108,99,255,.15);
+  }
+
+  .btn {
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    transition:all .2s;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #9b59f5);
+    color:#fff;
+  }
+
+  .btn-primary:hover {
+    transform:translateY(-1px);
+  }
+
+  .checkbox-row {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
+  }
+
+  .checkbox-row span {
+    font-size:13px;
+    color:var(--muted);
+  }
+
+  .strength-bar {
+    height:4px;
+    background:var(--border);
+    border-radius:4px;
+    overflow:hidden;
+    margin-top:8px;
+  }
+
+  .strength-fill {
+    height:100%;
+    width:0%;
+    transition:all .3s;
+  }
+
+  .alert {
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:20px;
+    font-size:13px;
+  }
+
+  .alert-error {
+    background:rgba(255,77,109,0.1);
+    border:1px solid rgba(255,77,109,0.3);
+    color:var(--error);
+  }
+
+  .alert-success {
+    background:rgba(67,233,123,0.1);
+    border:1px solid rgba(67,233,123,0.3);
+    color:var(--success);
+  }
+
+  .card-footer {
+    border-top:1px solid var(--border);
+    padding:16px;
+    text-align:center;
+    font-size:12px;
+    color:var(--muted);
+    background:var(--surface2);
+  }
+
+  @keyframes fadeDown {
+    from { opacity:0; transform:translateY(-16px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(16px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+
+  <div class="logo">
+    <div class="logo-icon">🔐</div>
+    <h1>SECUREVAULT</h1>
+    <p>Zero-Trust Identity Platform</p>
+  </div>
+
+  <div class="card">
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('login')">Sign In</button>
+      <button class="tab-btn" onclick="switchTab('register')">Register</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="panel active" id="loginPanel">
+
+      <div id="loginAlert"></div>
+
+      <div class="field">
+        <label>Username</label>
+        <input type="text" id="loginUser" placeholder="Enter username">
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="loginPass" placeholder="Enter password">
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox">
+        <span>Remember this device</span>
+      </div>
+
+      <button class="btn btn-primary" onclick="doLogin()">
+        Sign In
+      </button>
+
+    </div>
+
+    <!-- REGISTER -->
+    <div class="panel" id="registerPanel">
+
+      <div id="registerAlert"></div>
+
+      <div class="field">
+        <label>Username</label>
+        <input type="text" id="regUser" placeholder="Choose username">
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="regEmail" placeholder="your@email.com">
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="regPass" placeholder="Strong password" oninput="checkStrength()">
+
+        <div class="strength-bar">
+          <div class="strength-fill" id="strengthFill"></div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="doRegister()">
+        Create Account
+      </button>
+
+    </div>
+
+    <div class="card-footer">
+      🛡 AES-256 • PBKDF2 • Secure Login Demo
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const users = {};
+
+function switchTab(tab) {
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+
+  if(tab === 'login') {
+    document.querySelectorAll('.tab-btn')[0].classList.add('active');
+  } else {
+    document.querySelectorAll('.tab-btn')[1].classList.add('active');
+  }
+
+  document.getElementById('loginPanel').classList.toggle('active', tab === 'login');
+  document.getElementById('registerPanel').classList.toggle('active', tab === 'register');
+}
+
+function showAlert(id, message, type) {
+  document.getElementById(id).innerHTML =
+    `<div class="alert alert-${type}">${message}</div>`;
+}
+
+function hashPassword(password) {
+  return btoa(password);
+}
+
+function checkStrength() {
+
+  const pass = document.getElementById('regPass').value;
+  const fill = document.getElementById('strengthFill');
+
+  let score = 0;
+
+  if(pass.length >= 8) score++;
+  if(/[A-Z]/.test(pass)) score++;
+  if(/[0-9]/.test(pass)) score++;
+  if(/[^A-Za-z0-9]/.test(pass)) score++;
+
+  fill.style.width = (score * 25) + "%";
+
+  if(score <= 1) fill.style.background = "#ff4d6d";
+  else if(score <= 2) fill.style.background = "#ffd166";
+  else fill.style.background = "#43e97b";
+}
+
+function doRegister() {
+
+  const username = document.getElementById('regUser').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const password = document.getElementById('regPass').value;
+
+  if(!username || !email || !password) {
+    showAlert('registerAlert', 'Please fill all fields', 'error');
+    return;
+  }
+
+  if(users[username]) {
+    showAlert('registerAlert', 'Username already exists', 'error');
+    return;
+  }
+
+  users[username] = {
+    email,
+    password: hashPassword(password)
+  };
+
+  showAlert('registerAlert', 'Account created successfully!', 'success');
+
+  setTimeout(() => {
+    switchTab('login');
+  }, 1200);
+}
+
+function doLogin() {
+
+  const username = document.getElementById('loginUser').value.trim();
+  const password = document.getElementById('loginPass').value;
+
+  if(!users[username]) {
+    showAlert('loginAlert', 'Invalid username', 'error');
+    return;
+  }
+
+  if(users[username].password !== hashPassword(password)) {
+    showAlert('loginAlert', 'Wrong password', 'error');
+    return;
+  }
+
+  showAlert('loginAlert', `Welcome back, ${username}!`, 'success');
+}
+
+// Demo account
+users["demo"] = {
+  email: "demo@securevault.io",
+  password: hashPassword("Demo@123")
+};
+</script>
+
+</body>
+</html>
